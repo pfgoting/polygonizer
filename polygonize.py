@@ -90,6 +90,9 @@ def rasterToShp(rastPath,shpPath):
     poly.to_file(shpPath)
 
 def main(bounds,impath,rastPath,shpPath):
+	"""
+	This is the main function to extract png tiles from MGB website and convert them into raster and shp files.
+	"""
     # First get bounds in 4326 then reproject as 3857
     bbox = getUrlFromBounds(bounds)
     url = "http://gdis.mgb.gov.ph/arcgis/rest/services/Flood_Landslide_Susceptibility_10K_new_web/"\
@@ -114,11 +117,14 @@ def main(bounds,impath,rastPath,shpPath):
     rasterToShp(rastPath,shpPath)
 
 if __name__ == '__main__':
+	# Change these bounds. Do not use large areas as it would cause a failure on MGB servers.
     longMin = 123.684
     latMin = 10.175
     longMax = 123.785
     latMax = 10.253
     bounds = [longMin,latMin,longMax,latMax]
+
+    # Change here for the filenames of output files
     impath = os.path.join(fpath,'out.png')
     rastPath = os.path.join(fpath,'OUTPUT.TIF')
     shpPath = os.path.join(fpath,'output.shp')
